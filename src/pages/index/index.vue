@@ -8,8 +8,8 @@
       <div class="list-item" v-for="(item, index) in list" :key="index">
         <div class="item-left">-{{item.list_title}}-</div>
         <div class="item-center">
-          <span v-for="(items, ind) in item.list_item" :key="ind">
-            {{items.content}} {{ item.highlight }}
+          <span :class="items.highlight ? 'highlight' : ''" v-for="(items, ind) in item.list_item" :key="ind">
+            {{items.content}}
           </span>
         </div>
         <div class="item-right"> > </div>
