@@ -1,43 +1,104 @@
 <template>
-  <div @click="clickHandle">
-
-    <div class="userinfo" @click="bindViewTap">
-      <img class="userinfo-avatar" v-if="userInfo.avatarUrl" :src="userInfo.avatarUrl" background-size="cover" />
-      <img class="userinfo-avatar" src="/static/images/user.png" background-size="cover" />
-
-      <div class="userinfo-nickname">
-        <card :text="userInfo.nickName"></card>
-      </div>
+  <div class="wrapper">
+    <div class="header">
+      <img src="/static/images/header.png"/>
+      <!-- <input type="text" placeholder="哈哈哈"> -->
     </div>
-
-    <div class="usermotto">
-      <div class="user-motto">
-        <card :text="motto"></card>
+    <div class="main">
+      <div class="list-item" v-for="(item, index) in list" :key="index">
+        <div class="item-left">-{{item.list_title}}-</div>
+        <div class="item-center">
+          <span v-for="(items, ind) in item.list_item" :key="ind">
+            {{items.content}} {{ item.highlight }}
+          </span>
+        </div>
+        <div class="item-right"> > </div>
       </div>
-    </div>
-
-    <form class="form-container">
-      <input type="text" class="form-control" :value="motto" placeholder="v-model" />
-      <input type="text" class="form-control" v-model="motto" placeholder="v-model" />
-      <input type="text" class="form-control" v-model.lazy="motto" placeholder="v-model.lazy" />
-    </form>
-
-
-    <div class="all">
-        <div class="left">
-        </div>
-        <div class="right">
-        </div>
     </div>
   </div>
 </template>
 
 <script>
-import card from '@/components/card'
 
 export default {
   data () {
     return {
+      list: [
+        {
+          list_title: '人物',
+          list_item: [
+            {
+              highlight: false,
+              content: '双胞胎'
+            },
+            {
+              highlight: false,
+              content: '男孩'
+            },
+            {
+              highlight: true,
+              content: '娃娃'
+            },
+            {
+              highlight: false,
+              content: '伟人'
+            },
+            {
+              highlight: true,
+              content: '挂了很多'
+            },
+            {
+              highlight: false,
+              content: '儿子'
+            },
+            {
+              highlight: false,
+              content: '儿童'
+            },
+            {
+              highlight: false,
+              content: '男友'
+            }
+          ]
+        },
+        {
+          list_title: '动物',
+          list_item: [
+            {
+              highlight: false,
+              content: '老鼠'
+            },
+            {
+              highlight: false,
+              content: '老虎'
+            },
+            {
+              highlight: true,
+              content: '蛮牛'
+            },
+            {
+              highlight: false,
+              content: '野兔'
+            },
+            {
+              highlight: true,
+              content: '青龙'
+            },
+            {
+              highlight: false,
+              content: '蟒蛇'
+            },
+            {
+              highlight: false,
+              content: '千里马'
+            },
+            {
+              highlight: false,
+              content: '羊'
+            }
+          ]
+        }
+      ],
       motto: 'Hello miniprograme',
       userInfo: {
         nickName: 'mpvue',
@@ -45,11 +106,6 @@ export default {
       }
     }
   },
-
-  components: {
-    card
-  },
-
   methods: {
     bindViewTap () {
       const url = '../logs/main'
@@ -71,55 +127,41 @@ export default {
 }
 </script>
 
-<style scoped>
-.userinfo {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+<style lang="scss" scoped>
+body {
+  background: #f7f9fb;
 }
-
-.userinfo-avatar {
-  width: 128rpx;
-  height: 128rpx;
-  margin: 20rpx;
-  border-radius: 50%;
-}
-
-.userinfo-nickname {
-  color: #aaa;
-}
-
-.usermotto {
-  margin-top: 150px;
-}
-
-.form-control {
-  display: block;
-  padding: 0 12px;
-  margin-bottom: 5px;
-  border: 1px solid #ccc;
-}
-.all{
-  width:7.5rem;
-  height:1rem;
-  background-color:blue;
-}
-.all:after{
-  display:block;
-  content:'';
-  clear:both;
-}
-.left{
-  float:left;
-  width:3rem;
-  height:1rem;
-  background-color:red;
-}
-
-.right{
-  float:left;
-  width:4.5rem;
-  height:1rem;
-  background-color:green;
+.wrapper {
+  .header {
+    img {
+      width: 100%;
+    }
+  }
+  .main {
+    .list-item {
+      border-bottom: 1px solid #c1c8d0;
+      color: #4c4f51;
+      display: flex;
+      .item-left {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 80px;
+        background: #fff;
+      }
+      .item-center {
+        flex: 1;
+        .highlight {
+          color: #058bc9;
+        }
+      }
+      .item-right {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 30px;
+      }
+    }
+  }
 }
 </style>
