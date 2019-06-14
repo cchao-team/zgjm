@@ -1,23 +1,22 @@
 <template>
   <div class="wrapper">
     <div class="header">
-      <!-- <input type="text" placeholder="哈哈哈"> -->
       <div class="logo">
         <img src="/static/images/logo.png" alt="logo">
       </div>
       <div class="search-input">
-        <span>梦见：</span><input type="text" placeholder="蛇、打雷">
+        <span>梦见：</span><input type="text" v-model="query" placeholder="蛇、打雷">
       </div>
-      <div class="search-btn">马上解梦</div>
+      <div class="search-btn" @click="goDetail(false)">马上解梦</div>
     </div>
     <div class="main">
       <div class="list-item" v-for="(item, index) in list" :key="index">
         <div class="item-left">
           <img src="/static/images/icon.png" alt="icon">
-          {{item.list_title}}
+          <span>{{item.list_title}}</span>
           </div>
         <div class="item-center">
-          <span :class="items.highlight ? 'highlight' : ''" v-for="(items, ind) in item.list_item" :key="ind">
+          <span :class="items.highlight ? 'highlight' : ''" v-for="(items, ind) in item.list_item" :key="ind" @click="goDetail(items.content)">
             {{items.content}}
           </span>
         </div>
@@ -34,6 +33,7 @@
 export default {
   data () {
     return {
+      query: '',
       list: [
         {
           list_title: '人物',
@@ -229,17 +229,15 @@ export default {
     }
   },
   methods: {
-    bindViewTap () {
-      const url = '../logs/main'
+    goDetail (query) {
+      if (query) this.query = query
+      const url = `../detail/main?query=${this.query}`
+      console.log(url)
       if (mpvuePlatform === 'wx') {
         mpvue.switchTab({ url })
       } else {
         mpvue.navigateTo({ url })
       }
-    },
-    clickHandle (ev) {
-      console.log('clickHandle:', ev)
-      // throw {message: 'custom test'}
     }
   },
 
@@ -321,6 +319,7 @@ export default {
           height: 54rpx;
         }
         span {
+          margin-top: 10rpx;
           font-size: 20rpx;
           color: #616364;
         }
