@@ -3,7 +3,7 @@
     <div class="header">
       <div class="logo">
         <img src="/static/images/logo.png" alt="logo">
-`      </div>
+      </div>
       <div class="search-input">
         <span>梦见：</span><input type="text" v-model="query" placeholder="蛇、打雷">
       </div>
