@@ -1,6 +1,6 @@
 <template>
   <div class="wrapper">
-    <div class="header">
+    <div class="header" @click="aaa">
       <div class="logo">
         <img src="/static/images/logo.png" alt="logo">
       </div>
@@ -228,6 +228,26 @@ export default {
     }
   },
   methods: {
+    getList () {
+      swan.request({
+        url: 'http://qt.qq.com/php_cgi/news/php/varcache_getnews.php?id=12&page=0&plat=ios&version=33',
+        method: 'GET',
+        dataType: 'json',
+        data: {
+          key: 'value'
+        },
+        header: {
+          'content-type': 'application/json' // 默认值
+        },
+        success: function (res) {
+          console.log(res.data)
+        },
+        fail: function (err) {
+          console.log('错误码：' + err.errCode)
+          console.log('错误信息：' + err.errMsg)
+        }
+      })
+    },
     goDetail (query) {
       if (query) this.query = query
       const url = `../detail/main?query=${this.query}`
@@ -235,13 +255,14 @@ export default {
       if (mpvuePlatform === 'wx') {
         mpvue.switchTab({ url })
       } else {
-        mpvue.navigateTo({ url })
+        swan.navigateTo({ url })
       }
     }
   },
 
   created () {
     // let app = getApp()
+    // console.log(123123)
   }
 }
 </script>
